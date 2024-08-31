@@ -1,2 +1,4 @@
-# programming_solving
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+# 📌 programming solving
+
+### 🧑‍💻 lang: python
+### 🌟 baekjoon nickname: taky0315
