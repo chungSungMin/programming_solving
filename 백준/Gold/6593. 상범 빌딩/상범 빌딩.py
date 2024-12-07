@@ -2,6 +2,7 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
+
 def bfs(visited, floor, row, col):
     que = deque()
     que.append([floor, row, col,0])
@@ -18,7 +19,6 @@ def bfs(visited, floor, row, col):
                 if graph[next_f][next_r][next_c] == '.' and visited[next_f][next_r][next_c] == False :
                     visited[next_f][next_r][next_c] = True
                     que.append([next_f, next_r, next_c, count + 1])
-            
                 elif graph[next_f][next_r][next_c] == 'E':
                     return count + 1
     return -1
@@ -39,7 +39,6 @@ while True:
         input().strip()
 
     visited = [[ [ False for _ in range(C)] for _ in range(R) ] for _ in range(L)]
-    # print(f'visited shape: L={len(visited)}, R={len(visited[0])}, C={len(visited[0][0])}')
 
     d_l = [1,-1,0,0,0,0]
     d_r = [0,0,1,-1,0,0]
