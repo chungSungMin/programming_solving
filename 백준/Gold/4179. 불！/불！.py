@@ -1,45 +1,46 @@
-import sys
 from collections import deque
-input = sys.stdin.readline
 
-n, m = map(int, input().split())
-graph = []
+def bfs(graph, que):
+    dx = [0,0,1,-1]
+    dy = [1,-1,0,0]
 
-for i in range(n):
-    graph.append(list(input().rstrip()))
-    if 'J' in graph[i]:
-        q = deque([(0, i, graph[i].index('J'))])
+    while que :
+        i,j,tm = que.popleft()
 
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 'F':
-            q.append((-1, i, j))
+        if tm > -1 and graph[i][j] != 'F' and (i == R -1 or j == C - 1 or i == 0 or j == 0) :
+            return tm + 1
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-ans = 'IMPOSSIBLE'
+        for k in range(4):
+            ni = dx[k] + i
+            nj = dy[k] + j
 
-while q:
-    time, x, y = q.popleft()
+            if 0 <= ni < R and 0 <= nj < C and graph[ni][nj] != '#':
 
-    # 지훈이 탈출
-    if time > -1 and graph[x][y] != 'F' and (x == 0 or y == 0 or x == n - 1 or y == m - 1):
-        ans = time + 1
-        break
+                if tm > -1 and graph[ni][nj] == '.':
+                    graph[ni][nj] = '_'
+                    que.append([ni, nj, tm+1])
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] != '#':
+                elif tm == -1 and graph[ni][nj] != 'F' :
+                    graph[ni][nj] = 'F'
+                    que.append([ni, nj, -1])
 
-            # 지훈이 이동
-            if time > -1 and graph[nx][ny] == '.':
-                graph[nx][ny] = '_'
-                q.append((time + 1, nx, ny))
+    return 'IMPOSSIBLE'
 
-            # 불 퍼뜨리기
-            elif time == -1 and graph[nx][ny] != 'F':
-                graph[nx][ny] = 'F'
-                q.append((-1, nx, ny))
 
-print(ans)
+if __name__ == '__main__':
+    R, C = map(int, input().split())
+    graph = []
+    for i in range(R):
+        graph.append(list(input()))
+        if 'J' in graph[i] :
+            que = deque([[i, graph[i].index('J'), 0]])
+    
+    for i in range(R):
+        for j in range(C):
+            if graph[i][j] == 'F':
+                que.append([i,j,-1])
+
+    print(bfs(graph, que))
+        
+
+
