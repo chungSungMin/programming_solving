@@ -1,4 +1,3 @@
-
 def dfs(result, depth, now):
     if depth == 6 :
         print(*result)
@@ -6,12 +5,12 @@ def dfs(result, depth, now):
 
     else :
         for i in range(now, K):
-            if depth + K - i < 6 :
-                return
-            else :
-                result.append(S[i])
-                dfs(result, depth + 1, i + 1)
-                result.pop()
+            # if depth + K - i < 6 :
+            #     return
+            # else :
+            result.append(S[i])
+            dfs(result, depth + 1, i + 1)
+            result.pop()
 
 
 if __name__ == '__main__':
