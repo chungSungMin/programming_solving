@@ -1,16 +1,16 @@
-
-def dfs(result, N, M):
-    if len(result) == M :
+def dfs(depth):
+    global result
+    if depth == M :
         print(*result)
         return
     else :
         for i in range(1, N + 1):
-            if visited[i] :
+            if visited[i] == True :
                 continue
             else :
                 result.append(i)
                 visited[i] = True
-                dfs(result, N, M)
+                dfs(depth + 1)
                 result.pop()
                 visited[i] = False
 
@@ -18,5 +18,5 @@ def dfs(result, N, M):
 if __name__ == '__main__':
     N, M = map(int, input().split())
     result = []
-    visited = [False] * ( N + 1)
-    dfs(result, N, M)
+    visited = [False] * (N + 1)
+    dfs(0)
